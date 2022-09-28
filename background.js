@@ -1,8 +1,8 @@
-const userId = 510641053;
-const url = `https://api.twitch.tv/helix/streams?user_id=${userId}`;
-const token = "29u6bhty2ndrpcj29sfj4slddl4m4z";
-const ClientId = "w6cp33v89t3d1en98ygrd8kx53krwn";
-const headers = {
+let userId = 510641053;
+let url = `https://api.twitch.tv/helix/streams?user_id=${userId}`;
+let token = "29u6bhty2ndrpcj29sfj4slddl4m4z";
+let ClientId = "w6cp33v89t3d1en98ygrd8kx53krwn";
+let headers = {
 	'Authorization' : `Bearer ${token}`,
 	'Client-Id' : ClientId
 }
@@ -12,7 +12,7 @@ const headers = {
 
 let liveIsOn = false;
 
-const cb = function (json){
+let cb = function (json){
 	if(json.data.length && !liveIsOn){
 		chrome.notifications.create('LiveOn', {
 			title: `${json.data[0]['game_name']}`,
@@ -55,3 +55,10 @@ chrome.alarms.create({
 chrome.alarms.onAlarm.addListener(() => {
 	fetchTwitchAPI(url, headers, cb);
 })
+delete(userId);
+delete(url);
+delete(token);
+delete(liveIsOn);
+delete(ClientId);
+delete(headers);
+delete(cb);
